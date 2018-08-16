@@ -16,8 +16,14 @@ buildscript {
 }
 
 jar {
-    baseName = 'gs-rest-service'
-    version =  '0.1.0'
+    manifest {
+        attributes  'Title': 'My Application', 'Version': version, 'Main-Class': mainClassName
+    }
+    archiveName 'study02.jar'
+    dependsOn configurations.runtime
+    from {
+        configurations.compile.collect {it.isDirectory()? it: zipTree(it)}
+    }
 }
 
 repositories {
